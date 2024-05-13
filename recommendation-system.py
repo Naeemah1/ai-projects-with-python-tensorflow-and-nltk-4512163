@@ -10,8 +10,11 @@ movies = pd.read_csv("movies.csv")
 
 # Create user-item matrix
 def create_matrix(df):
-    N = len(df['userId'].unique())
-    M = len(df['movieId'].unique())
+    #sparse matrix to find similarities based on user ratings
+    #takes dataframe as input
+    N = len(df['userId'].unique()) #number of unique users
+    M = len(df['movieId'].unique()) #number of unique movies
+    #maps between ID and different indices
     user_mapper = dict(zip(np.unique(df["userId"]), list(range(N))))
     movie_mapper = dict(zip(np.unique(df["movieId"]), list(range(M))))
     user_inv_mapper = dict(zip(list(range(N)), np.unique(df["userId"])))
@@ -28,10 +31,12 @@ def find_similar_movies(movie_id, X, k, metric='cosine', show_distance=False):
     neighbour_ids = []
     movie_ind = movie_mapper[movie_id]
     movie_vec = X[movie_ind]
-    k+=1
+    k+=1 #most similar movie is itself but dont want to include in results
     kNN = NearestNeighbors(n_neighbors=k, algorithm="brute", metric=metric)
+    #brute algorithm compares distances between all pairs in dataset, inefficient
     kNN.fit(X)
     movie_vec = movie_vec.reshape(1,-1)
+    #reshape into 2d array because needed for k neighbours method
     neighbour = kNN.kneighbors(movie_vec, return_distance=show_distance)
     for i in range(0,k):
         n = neighbour.item(i)

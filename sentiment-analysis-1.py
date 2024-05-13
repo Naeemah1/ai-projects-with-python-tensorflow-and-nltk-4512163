@@ -1,5 +1,6 @@
 # Importing necessary libraries
 import nltk
+#symbolic and statistical language natural language processing
 from nltk.sentiment import SentimentIntensityAnalyzer
 
 # Download the vader_lexicon package
@@ -11,7 +12,9 @@ def analyze_sentiment(text):
 
     # Compute and print the sentiment scores
     sentiment = sia.polarity_scores(text)
+    #gives positive and negative weightings between 0-1 and an overall compound score betweeen -1 and 1
     print(sentiment)
 
 # Test the function with a sample text
-analyze_sentiment("NLTK is a great library for Natural Language Processing!")
+analyze_sentiment("natural materials is a useless rubbish")
+analyze_sentiment("angiotensin is a vasoconstrictor")

@@ -11,7 +11,7 @@ documents = [(list(movie_reviews.words(fileid)), category)
               for fileid in movie_reviews.fileids(category)]
 
 # Shuffle the documents
-random.shuffle(documents)
+random.shuffle(documents) # reduce bias
 
 # Define the feature extractor
 all_words = nltk.FreqDist(w.lower() for w in movie_reviews.words())
@@ -26,8 +26,13 @@ def document_features(document):
 
 # Train the classifier
 featuresets = [(document_features(d), c) for (d,c) in documents]
+#each feature set is a tuple containing dict of features and a category
 train_set, test_set = featuresets[100:], featuresets[:100]
+#split into train and test set
 classifier = NaiveBayesClassifier.train(train_set)
+#probabilistic classifier that applies bayes
+#works by having strong assumptions on different independencies of features we created
+
 
 # Test the classifier
 print(accuracy(classifier, test_set))
