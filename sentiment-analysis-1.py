@@ -16,5 +16,6 @@ def analyze_sentiment(text):
     print(sentiment)
 
 # Test the function with a sample text
-analyze_sentiment("natural materials is a useless rubbish")
+analyze_sentiment("Lamees is a beautiful stunning amazing genius angel")
 analyze_sentiment("angiotensin is a vasoconstrictor")
+analyze_sentiment("luna is not very nice")
